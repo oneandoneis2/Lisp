@@ -1,17 +1,18 @@
 (defparameter *small* 1)
 (defparameter *big* 100)
+(defparameter *guess* 0)
 
 (defun guess-my-number ()
-  (ash ( + *small* *big* ) -1)
+  (setf *guess* (ash ( + *small* *big* ) -1))
   )
 
 (defun smaller ()
-  ( setf *big* ( 1- (guess-my-number)  ) )
+  ( setf *big* ( 1- *guess*  ) )
   (guess-my-number)
   )
 
 (defun bigger ()
-  ( setf *small* ( 1+ (guess-my-number)  ) )
+  ( setf *small* ( 1+ *guess*  ) )
   (guess-my-number)
   )
 
