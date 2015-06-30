@@ -6,6 +6,25 @@
     )
   )
 
+(defparameter *edges*
+  '(
+    (living-room
+      (garden west door)
+      (attic upstairs ladder)
+      )
+    (garden
+      (living-room east door)
+      )
+    (attic
+      (living-room downstairs ladder)
+      )
+    )
+  )
+
 (defun describe-location (location nodes)
   (cadr (assoc location nodes))
   )
+
+(defun describe-path (edge)
+  `(There is a ,(caddr edge) going ,(cadr edge) from here.)
+ )
