@@ -95,3 +95,16 @@
       )
     )
   )
+
+(defun pickup (object)
+  (cond ((member object (objects-at *location* *objects* *object-locations*))
+             (push (list object 'body) *object-locations*)
+             `(You are now carrying the ,object)
+             )
+        (t '(You cannot pick that up.))
+        )
+  )
+
+(defun inventory ()
+  (cons 'items- (objects-at 'body *objects* *object-locations*))
+ )
