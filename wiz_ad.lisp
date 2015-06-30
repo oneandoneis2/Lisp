@@ -20,12 +20,22 @@
       )
     )
   )
+
 (defparameter *objects*
   '(
     whiskey
     bucket
     frog
     chain
+    )
+ )
+
+(defparameter *object-locations*
+  '(
+    (whiskey living-room)
+    (bucket living-room)
+    (frog garden)
+    (chain garden)
     )
  )
 
