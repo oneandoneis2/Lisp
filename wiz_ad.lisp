@@ -62,3 +62,11 @@
     (remove-if-not #'at-loc-p objs)
    )
  )
+
+(defun describe-objects (loc objs obj-locs)
+  (labels (
+           (describe-objs (obj) `(You see a ,obj on the floor.))
+           )
+    (apply #'append (mapcar #'describe-objs (objects-at loc objs obj-locs)))
+   )
+ )
