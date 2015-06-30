@@ -20,6 +20,14 @@
       )
     )
   )
+(defparameter *objects*
+  '(
+    whiskey
+    bucket
+    frog
+    chain
+    )
+ )
 
 (defun describe-location (location nodes)
   (cadr (assoc location nodes))
