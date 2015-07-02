@@ -125,3 +125,11 @@
       )
    )
   )
+
+(defparameter *allowed-commands* '(look walk pickup inventory))
+(defun game-eval (sexp)
+  (if (member (car sexp) *allowed-commands*)
+    (eval sexp)
+    `(I do not know how to ,(car sexp))
+    )
+ )
