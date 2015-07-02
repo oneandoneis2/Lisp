@@ -156,8 +156,11 @@
                   tweak-text (
                              coerce (
                                      string-trim "() " (prin1-to-string lst)
-                                     ) 'list
-                             ) t nil
+                                     )
+                             'list
+                             )
+                  t
+                  nil
                   ) 'string)
          )
   (fresh-line)
