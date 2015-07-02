@@ -211,3 +211,10 @@
     edges
     )
   )
+
+(defun graph->dot (nodes edges)
+  (princ "digraph{")
+  (nodes->dot nodes)
+  (edges->dot edges)
+  (princ "}")
+ )
