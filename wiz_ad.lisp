@@ -164,3 +164,8 @@
     (funcall thunk))
   (ext:shell (concatenate 'string "dot -Tpng -O " fname))
 )
+
+(defun graph->png (fname nodes edges)
+  (dot->png fname
+            (lambda ()
+              (graph->dot nodes edges))))
