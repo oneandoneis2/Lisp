@@ -67,8 +67,8 @@
 
 (defun pickup (object)
   (cond ((member object (objects-at *location* *objects* *object-locations*))
-             (push (list object 'body) *object-locations*)
-             `(You are now carrying the ,object))
+         (push (list object 'body) *object-locations*)
+         `(You are now carrying the ,object))
         (t '(You cannot pick that up.))))
 
 (defun inventory ()
@@ -106,9 +106,9 @@
   (princ (
           coerce (
                   tweak-text (
-                             coerce (
-                                     string-trim "() " (prin1-to-string lst))
-                             'list)
+                              coerce (
+                                      string-trim "() " (prin1-to-string lst))
+                              'list)
                   t
                   nil) 'string))
   (fresh-line))
@@ -163,7 +163,7 @@
                     :if-exists :supersede)
     (funcall thunk))
   (ext:shell (concatenate 'string "dot -Tpng -O " fname))
-)
+  )
 
 (defun graph->png (fname nodes edges)
   (dot->png fname
@@ -185,11 +185,11 @@
            edges))
 
 (defun ugraph->dot (nodes edges)
- (princ "graph{")
- (nodes->dot nodes)
- (uedges->dot edges)
- (fresh-line)
- (princ "}"))
+  (princ "graph{")
+  (nodes->dot nodes)
+  (uedges->dot edges)
+  (fresh-line)
+  (princ "}"))
 
 (defun ugraph->png (fname nodes edges)
   (dot->png fname
