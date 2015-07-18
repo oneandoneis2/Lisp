@@ -4,3 +4,12 @@
 (defparameter *monsters* nil)
 (defparameter *monster-builders* nil)
 (defparameter *monster-num* 12)
+
+(defun orc-battle ()
+  (init-monsters)
+  (init-player)
+  (game-loop)
+  (when (player-dead)
+    (princ "You have been killed. You suck."))
+  (when (monsters-dead)
+    (princ "You have killed all the monsters! Win!")))
