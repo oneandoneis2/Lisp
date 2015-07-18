@@ -24,17 +24,6 @@
                   (eql (car x) node))
                 edge-list))
 
-(defun get-connected (node edge-list)
-  (let ((visited nil))
-    (labels ((traverse (node)
-                       (unless (member node visited)
-                         (push node visited)
-                         (mapc (lambda (edge)
-                                 (traverse (cdr edge)))
-                               (direct-edges node edge-list)))))
-      (traverse node))
-      visited))
-
 (defun hash-edges (edge-list)
   (let ((tab (make-hash-table)))
     (mapc (lambda (x)
@@ -54,10 +43,15 @@
       (traverse node))
     visited))
 
+(defun hash-keys (hash-table)
+    (loop for key being the hash-keys of hash-table collect key))
+
 (defun find-islands (nodes edge-list)
   (let ((islands nil))
     (labels ((find-island (nodes)
-                          (let* ((connected (get-connected (car nodes) edge-list))
+                          (let* ((connected (hash-keys (get-connected-hash
+                                                         (car nodes)
+                                                         (hash-edges edge-list))))
                                  (unconnected (set-difference nodes connected)))
                             (push connected islands)
                             (when unconnected
