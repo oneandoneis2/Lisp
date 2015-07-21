@@ -18,7 +18,7 @@
   (unless (or (player-dead) (monsters-dead))
     (show-player)
     (dotimes (k (1+ (truncate (/ (max 0 *player-agility*) 15))))
-      (unless (monsters-dead) ;; Why is this here?? We check monsters-dead a few lines earlier!
+      (unless (monsters-dead)
         (show-monsters)
         (player-attack)))
     (fresh-line)
@@ -38,16 +38,16 @@
 
 (defun show-player ()
   (fresh-line)
-  (prince "You are a valiant knight with a health of ")
-  (prince *player-health*)
-  (prince ", an agility of ")
-  (prince *player-agility*)
-  (prince ", and strength of ")
-  (prince *player-strength*))
+  (princ "You are a valiant knight with a health of ")
+  (princ *player-health*)
+  (princ ", an agility of ")
+  (princ *player-agility*)
+  (princ ", and strength of ")
+  (princ *player-strength*))
 
 (defun player-attack ()
   (fresh-line)
-  (princ "Attack style: [s]tab [d]ouble swing [r]oundhouse:")
+  (princ "Attack style: [s]tab [d]ouble swing [r]oundhouse: ")
   (case (read)
     (s (monster-hit (pick-monster)
                     (+ 2 (randval (ash *player-strength* -1)))))
@@ -93,7 +93,7 @@
              (make-array *monster-num*))))
 
 (defun monster-dead (m)
-  (<= (monster-health) 0))
+  (<= (monster-health m) 0))
 
 (defun monsters-dead ()
   (every #'monster-dead *monsters*))
