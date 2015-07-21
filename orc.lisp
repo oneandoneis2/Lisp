@@ -50,7 +50,7 @@
   (princ "Attack style: [s]tab [d]ouble swing [r]oundhouse:")
   (case (read)
     (s (monster-hit (pick-monster)
-                    (+2 (randval (ash *player-strength* -1)))))
+                    (+ 2 (randval (ash *player-strength* -1)))))
     (d (let ((x (randval (truncate (/ *player-strength* 6)))))
          (princ "Your double swing has a strength of ")
          (princ x)
@@ -115,3 +115,5 @@
                     (princ ") ")
                     (monster-show m))))
          *monsters*)))
+
+(defstruct monster (health (randval 10)))
