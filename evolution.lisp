@@ -5,7 +5,7 @@
 (defparameter *plants* (make-hash-table :test #'equal))
 
 (defun random-plant (left top width height)
-  (let ((post (cons (+ left (random width)) (+ top (random height)))))
+  (let ((pos (cons (+ left (random width)) (+ top (random height)))))
     (setf (gethash pos *plants*) t)))
 
 (defun add-plants ()
@@ -111,4 +111,3 @@
                        do (princ #\.))
                  (update-world))
                (evolution))))))
-  )
