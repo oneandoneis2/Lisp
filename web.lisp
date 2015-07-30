@@ -25,3 +25,42 @@
                     (and i2 (parse-params (subseq s (1+ i2))))))
           ((equal s "") nil)
           (t s))))
+
+(defun parse-url (s)
+  (let* ((url (subseq s
+                      (+ 2 (position #\space s))
+                      (position #\space s :from-end t)))
+         (x (position #\? url)))
+    (if x
+      (cons (subseq url 0 x) (parse-params (subseq url (1+ x))))
+      (cons url '()))))
+
+(defun get-header (stream)
+  (let* ((s (read-line stream))
+         (h (let ((i (position #\: s)))
+              (when i
+                (cons (intern (string-upcase (subseq s 0 i)))
+                      (subseq s (+ i 2)))))))
+    (when h
+      (cons h (get-header stream)))))
+
+(defun get-content-params (stream header)
+  (let ((length (cdr (assoc 'content-length header))))
+    (when length
+      (let ((content (make-string (parse-integer length))))
+        (read-sequence content stream)
+        (parse-params content)))))
+
+(defun serve (request-handler)
+  (let ((socket (socket-server 8080)))
+    (unwind-protect
+      (loop (with-open-stream (stream (socket-accept socket))
+              (let* ((url (parse-url (read-line stream)))
+                     (path (car url))
+                     (header (get-header stream))
+                     (params (append (cdr url)
+                                     (get-content-params stream header)))
+                     (*standard-output* stream))
+                (funcall request-handler path header params))))
+      (socket-server-close socket))))
+
