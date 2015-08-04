@@ -52,7 +52,7 @@
     (mapcan (lambda (src)
               (when (eq (player src) cur-player)
                 (mapcan (lambda (dst)
-                          (when (and (not (eq (plasyer dst) cur-player))
+                          (when (and (not (eq (player dst) cur-player))
                                      (> (dice src) (dice dst)))
                             (list
                               (list (list src dst)
@@ -77,3 +77,22 @@
                              (list (1+ pos) (1+ down))))
           when (and (>= p 0) (< p *board-hexnum*))
           collect p)))
+
+(defun board-attack (board player src dst dice)
+  (board-array (loop for pos from 0
+                     for hex across board
+                     collect (cond ((eq pos src) (list player 1))
+                                   ((eq pos dst) (list player (1- dice)))
+                                   (t hex)))))
+
+(defun add-new-dice (board player spare-dice)
+  (labels ((f (lst n)
+              (cond ((null lst) nil)
+                    ((zerop n) lst)
+                    (t (let ((cur-player (caar lst))
+                             (cur-dice (cadar lst)))
+                         (if (and (eq cur-player player) (< cur-dice *max-dice*))
+                           (cons (list cur-player (1+ cur-dice))
+                                 (f (cdr lst) (1- n)))
+                           (cons (car lst) (f (cdr lst) n))))))))
+    (board-array (f (coerce board 'list) spare-dice))))
