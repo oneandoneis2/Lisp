@@ -28,6 +28,11 @@
                      (reverse acc))))
     (f lst nil)))
 
+(defmacro recurse (vars &body body)
+  (let1 p (pairs vars)
+        `(labels ((self ,(mapcar #'car p) ,@body))
+           (self ,@(mapcar #'cdr p)))))
+
 (defun my-length (lst)
   (labels ((f (lst acc)
               (split lst
