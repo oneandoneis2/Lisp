@@ -19,6 +19,15 @@
                    ,yes)
                  ,no))))
 
+(defun pairs (lst)
+  (labels ((f (lst acc)
+              (split lst
+                     (if tail
+                       (f (cdr tail) (cons (cons head (car tail)) acc))
+                       (reverse acc))
+                     (reverse acc))))
+    (f lst nil)))
+
 (defun my-length (lst)
   (labels ((f (lst acc)
               (split lst
