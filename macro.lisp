@@ -11,12 +11,13 @@
         x))
 
 (defmacro split (val yes no)
-  `(let1 x ,val
-         (if x
-           (let ((head (car x))
-                 (tail (cdr x)))
-             ,yes)
-           ,no)))
+  (let1 g (gensym)
+        `(let1 ,g ,val
+               (if ,g
+                 (let ((head (car ,g))
+                       (tail (cdr ,g)))
+                   ,yes)
+                 ,no))))
 
 (defun my-length (lst)
   (labels ((f (lst acc)
