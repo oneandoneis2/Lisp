@@ -34,8 +34,7 @@
            (self ,@(mapcar #'cdr p)))))
 
 (defun my-length (lst)
-  (labels ((f (lst acc)
-              (split lst
-                (f tail (1+ acc))
-                acc)))
-    (f lst 0)))
+  (recurse (lst lst acc 0)
+           (split lst
+                  (self tail (1+ acc))
+                  acc)))
