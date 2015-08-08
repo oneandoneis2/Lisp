@@ -108,7 +108,7 @@
                               (1- n)
                               (cons (list cur-player (1+ cur-dice)) acc))
                            (f (cdr lst) n (cons (car lst) acc))))))))
-    (board-array (f (coerce board 'list) spare-dice))))
+    (board-array (f (coerce board 'list) spare-dice ()))))
 
 (defun play-vs-human (tree)
   (print-info tree)
