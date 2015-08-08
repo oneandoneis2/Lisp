@@ -38,3 +38,8 @@
            (split lst
                   (self tail (1+ acc))
                   acc)))
+
+(defun my-length2 (lst)
+  (reduce (lambda (x i) (1+ x))
+          lst
+          :initial-value 0))
