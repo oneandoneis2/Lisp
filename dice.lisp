@@ -10,7 +10,28 @@
          ,value))))
 
 (defun force (lazy-value)
-  funcall lazy-value)
+  (funcall lazy-value))
+
+(defmacro lazy-cons (a d)
+  `(lazy (cons ,a ,d)))
+
+(defun lazy-car (x)
+  (car (force x)))
+
+(defun lazy-cdr (x)
+  (cdr (force x)))
+
+; lazy infinite list
+(defparameter *integers*
+  (labels ((f (n)
+              (lazy-cons n (f (1+ n)))))
+    (f 1)))
+
+(defun lazy-nil ()
+  (lazy nil))
+
+(defun lazy-null (x)
+  (not (force x)))
 
 (defparameter *num-players* 2)
 (defparameter *max-dice* 3)
