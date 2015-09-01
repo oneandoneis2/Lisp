@@ -1,3 +1,5 @@
+(load "lazy.lisp")
+
 (defparameter *num-players* 2)
 (defparameter *max-dice* 3)
 (defparameter *board-size* 3)
